@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -RAa | wc -l
+find . -type f -not -name '.' | wc
