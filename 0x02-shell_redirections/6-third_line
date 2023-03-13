@@ -1,2 +1,2 @@
 #!/bin/bash
-awk 'NR==3,NR==5' icata
+awk 'NR==3' icata
