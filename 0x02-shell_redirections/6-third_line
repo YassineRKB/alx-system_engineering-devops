@@ -1,2 +1,2 @@
 #!/bin/bash
-awk 'NR==3' icata
+head -3 icata | tail +3
