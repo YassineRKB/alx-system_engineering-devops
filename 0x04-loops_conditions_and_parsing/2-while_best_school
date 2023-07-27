@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #Bash script to display "Best School" 10 times using while loop.
-iterator=0
-while [ $iterator -lt 10 ]
+i=0
+while [ $i -lt 10 ]
 do
 	echo "Best School"
 	((i++))
