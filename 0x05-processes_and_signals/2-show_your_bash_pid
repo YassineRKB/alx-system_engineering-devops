@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+#Bash Script: to dispaly bash pids in tree
+ps -xauf | grep "bash"
