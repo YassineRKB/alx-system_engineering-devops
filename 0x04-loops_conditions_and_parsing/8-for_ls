@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#Bash script: display contents of directory, In a list format, Where part of the name after the first dash is displayed only.
+dirs=$(ls)
+for dir in dirs
+do
+	echo "$dirs" | cut -d '-' -f 2
+done
