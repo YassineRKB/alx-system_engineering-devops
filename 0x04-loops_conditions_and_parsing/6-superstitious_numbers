@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+#Bash script: display numbers 1 to 20, after 4 display bad luck (china), after 9 is bad luck from japan, afer 17 is bad luck from italy all on new line 
+i=1
+while [ $i -lt 21 ]
+do
+	echo "$i"
+	case "$i" in
+		4)
+			echo "bad luck from China"
+			;;
+		9)
+			echo "bad luck from Japan"
+			;;
+		17)
+			echo "bad luck from Italy"
+			;;
+	esac
+	((i++))
+done
