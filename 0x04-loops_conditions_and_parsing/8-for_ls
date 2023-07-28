@@ -3,5 +3,5 @@
 dirs=$(ls)
 for dir in $dirs
 do
-	echo "$dirs" | cut -d '-' -f 2
+    echo "$dir" | cut -d- -f 2
 done
