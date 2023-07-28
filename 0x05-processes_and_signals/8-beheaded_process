@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+#Bash Script: kills infinit loop of task 7 script file 
+pkill -f -SIGKILL 7-highlander
