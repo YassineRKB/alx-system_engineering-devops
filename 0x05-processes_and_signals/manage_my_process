@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#Bash script: infinity looped to writes & append "I am alive!" to /tmp/my_process
+msg="I am alive!"
+while true
+do
+	echo $msg >> /tmp/my_process
+	sleep 2
+done
