@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#Bash Script: display infinit loop and trap SIGTERM to echo I am invincible!!!
+trap 'echo ""' SIGTERM
+while true
+do
+    echo "To infinity and beyond"
+    sleep 2
+done
