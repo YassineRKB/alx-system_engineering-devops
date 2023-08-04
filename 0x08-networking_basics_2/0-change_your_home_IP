@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+#Bash Script: configuration script for a ubuntu server
+cp /etc/hosts ~/hosts.tmp
+echo "127.0.0.2\tlocalhost" >> ~/hosts.tmp
+echo "8.8.8.8\tfacebook.com" >> ~/hosts.tmp
+cp -f ~/hosts.tmp /etc/hosts
