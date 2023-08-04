@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+#Bash Script: pull all ip4 addresses on host machine
+ifconfig -a | grep inet | cut -d: -f2 | cut -d" "  -f1
