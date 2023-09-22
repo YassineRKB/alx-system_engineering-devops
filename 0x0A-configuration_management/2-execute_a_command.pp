@@ -1,4 +1,5 @@
 #task 2: manifest to kill process named killmenow
-exec {'pkill killmenow':
-    command => '/usr/bin/pkill kilmenow',
+
+exec {'kill killmenow':
+  command => '/usr/bin/pkill killmenow',
 }
