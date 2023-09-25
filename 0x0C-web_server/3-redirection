@@ -8,4 +8,4 @@ nginx_sites="/etc/nginx/sites-available/default"
 location=$(grep -Fn location $nginx_sites | head -1 | cut -d":" -f1)
 sudo sh -c 'echo "Hello World!" > /var/www/html/index.nginx-debian.html'
 sudo sed -i "${location}i ${replacment}" ${nginx_sites}
-sudo service nginx start
+service nginx start
