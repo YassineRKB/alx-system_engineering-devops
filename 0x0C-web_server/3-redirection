@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#bash script: to configure nginx server
+sudo apt-get -y update
+sudo apt-get -y install nginx
+sudo sh -c 'echo "Hello World!" > /var/www/html/index.nginx-debian.html'
+nginx_config="/etc/nginx/sites-enabled/default"
+server_name="server_name _;"
+rewrite_rule="rewrite ^\/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;"
+sudo sed -i "s/$server_name/$rewrite_rule/" "$nginx_config"
+sudo service nginx restart
