@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 # bash script to install nginx script
 # index configuration + listen on port 80
-sudo apt-get update -y
+sudo apt-get -y update
 sudo apt-get -y install nginx
-echo "Hello World!" | sudo tee /var/www/html/index*html
-echo "Hello World!" | sudo tee /usr/share/nginx/html/index.html
-sudo service nginx start
+sudo sh -c 'echo "Hello World!" > /var/www/html/index.html'
+sudo sh -c 'echo server {
+	listen 80;
+	server_name localhost;
+} > /etc/nginx/sites-available/default'
+service nginx start
