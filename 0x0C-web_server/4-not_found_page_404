@@ -3,12 +3,12 @@
 # set up error page + 404 page
 sudo apt-get -y update
 sudo apt-get -y install nginx
-echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html
-replacement=$'\\\tlocation /redirect_me {\n\t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n\t}\n'
+replacment="\\\tlocation /redirect_me {\n\t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n\t}\n\n"
 nginx_sites="/etc/nginx/sites-available/default"
-location=$(grep -Fn "location" "$nginx_sites" | head -1 | cut -d":" -f1)
+location=$(grep -Fn location $nginx_sites | head -1 | cut -d":" -f1)
 page404="\\\terror_page 404 /404.html;\n"
-echo "Ceci n'est pas une page" | sudo tee "/var/www/html/404.html"
+sudo sh -c 'echo Ceci n'\'''\''est pas une page > /var/www/html/404.html'
+sudo sh -c 'echo "Hello World!" > /var/www/html/index.nginx-debian.html'
 sudo sed -i "${location}i ${replacment}" ${nginx_sites}
 sudo sed -i "${location}i ${page404}" ${nginx_sites}
 sudo service nginx start
