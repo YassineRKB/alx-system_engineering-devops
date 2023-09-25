@@ -4,8 +4,4 @@
 sudo apt-get -y update
 sudo apt-get -y install nginx
 sudo sh -c 'echo "Hello World!" > /var/www/html/index.html'
-sudo sh -c 'echo server {
-	listen 80;
-	server_name localhost;
-} > /etc/nginx/sites-available/default'
 service nginx start
