@@ -4,12 +4,4 @@
 sudo apt-get update -y
 sudo apt-get install nginx -y
 echo "Hello World!" | sudo tee /etc/nginx/html/index.html
-echo "server {
-	listen 80;
-	server_name localhost;
-	location / {
-		echo 'Hello World';
-	}
-}" > /etc/nginx/sites-available/default
-
 sudo nginx -s reload
