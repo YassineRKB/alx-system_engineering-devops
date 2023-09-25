@@ -7,7 +7,7 @@ replacment="\\\tlocation /redirect_me {\n\t\treturn 301 https://www.youtube.com/
 nginx_sites="/etc/nginx/sites-available/default"
 location=$(grep -Fn location $nginx_sites | head -1 | cut -d":" -f1)
 page404="\\\terror_page 404 /404.html;\n"
-sudo sh -c 'echo Ceci n'\'''\''est pas une page > /var/www/html/404.html'
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
 sudo sh -c 'echo "Hello World!" > /var/www/html/index.nginx-debian.html'
 sudo sed -i "${location}i ${replacment}" ${nginx_sites}
 sudo sed -i "${location}i ${page404}" ${nginx_sites}
