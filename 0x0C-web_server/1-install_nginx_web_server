@@ -11,3 +11,5 @@ echo "server {
 		echo 'Hello World';
 	}
 }" > /etc/nginx/sites-available/default
+
+sudo nginx -s reload
