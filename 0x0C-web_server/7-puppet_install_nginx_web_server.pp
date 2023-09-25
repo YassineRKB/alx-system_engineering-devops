@@ -1,46 +1,48 @@
-# puppet manifest to install and configure nginx + 404 page
+# puppet manifest to install and configure nginx + index + redirect_me + 404
 exec { 'apt update':
   command => 'apt-get update',
-  path    => '/usr/bin/apt-get update',
+  path    => '/usr/bin',
 }
 package { 'nginx':
-  ensure     => 'installed',
+  ensure => 'installed',
 }
-file { 'nginx index.html':
+file { '/var/www/html/index.html':
+  ensure  => 'file',
   require => Package['nginx'],
-  path    => '/var/www/html/index.html',
-  content => 'Hello World!\n'
+  content => 'Hello World!\n',
 }
-file { 'nginx 404.html':
+file { '/var/www/html/404.html':
+  ensure  => 'file',
   require => Package['nginx'],
-  path    => '/var/www/html/404.html',
-  content => 'Ceci n\'est pas une page\n'
+  content => "Ceci n'est pas une page\n",
 }
-file { 'Nginx default config file':
-  ensure  => file,
-  path    => '/etc/nginx/sites-available/default',
-  content =>
-"server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
-               root /var/www/html;
-        index index.html index.htm index.nginx-debian.html;
-        server_name _;
-        location / {
-                # First attempt to serve request as file, then
-                # as directory, then fall back to displaying a 404.
-                try_files \$uri \$uri/ =404;
-        }
-        error_page 404 /404.html;
-        location  /404.html {
-            internal;
-        }
-        location /redirect_me {
-            return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
-        }
-        if (\$request_filename ~ redirect_me){
-            rewrite ^ https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;
-        }
+file { '/etc/nginx/sites-available/default':
+  ensure  => 'file',
+  content => "
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+    server_name _;
+    location / {
+        try_files \$uri \$uri/ =404;
+    }
+    error_page 404 /404.html;
+    location  /404.html {
+        internal;
+    }
+    location /redirect_me {
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+    }
+    if (\$request_filename ~ redirect_me){
+        rewrite ^ https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;
+    }
 }
 ",
+}
+service { 'nginx':
+  ensure  => 'running',
+  enable  => true,
+  require => [File['/etc/nginx/sites-available/default'], Package['nginx']],
 }
