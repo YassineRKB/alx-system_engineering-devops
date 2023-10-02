@@ -2,14 +2,24 @@
 # bash script to update && configure ubuntu server: nginx
 
 ## apt operations
-sudo apt update -y
-sudo apt install nginx -y
+sudo apt update -y;
+sudo apt install nginx -y;
 
-## conigration vars, files and logic
+## configuration vars, files and logic
 alx_Hostname=$(hostname);
-alx_nginxDefaultSites="/etc/nginx/sites-available/default"
+alx_nginxDefaultSites="/etc/nginx/sites-available/default";
+alx_nginxServerSectionArea=$(grep -Fn location $alx_nginxDefaultSites | head -1 | cut -d":" -f1);
+alx_nginxServerSectionData="\\\tlocation /redirect_me {\n\t\treturn 301 https://youtu.be/QH2-TGUlwu4;\n\t}\n\n";
+alx_defaultPage="/var/www/html/index.html"
+alx_defaultMessage="Hello World!"
+alx_404File="/var/www/html/404.html"
+alx_404Message="Ceci n'est pas une page"
+alx_nginxIdentifier="\\\tadd_header X-Served-By \"$(alx_Hostname)\";\n"
+
 ## implementations
-echo "Ceci n'est pas une page" | sudo tee "/var/www/html/404.html" #create 404 page
-sed -i "/listen 80 default_server/i add_header X-Served-By $HOSTNAME;" /etc/nginx/sites-available/default #injecy custom header
-sudo sh -c 'echo "Hello World!" > /var/www/html/index.nginx-debian.html' #set default index
+sudo sed -i "${alx_nginxServerSectionArea}i ${alx_nginxServerSectionData}" ${alx_nginxDefaultSites}; #settingup nginx server & redirect route
+sudo sed -i "${alx_nginxServerSectionArea}i ${alx_404File}" ${alx_nginxDefaultSites}; #setting 404 route
+sudo sed -i "${alx_nginxServerSectionArea}i ${alx_nginxIdentifier}" ${alx_nginxDefaultSites}; #setting x-served-by header
+echo $alx_defaultMessage | sudo tee $alx_defaultPage #creating default route
+echo $alx_404Message | sudo tee $alx_404File #creating 404 page
 sudo service nginx restart #restart service
