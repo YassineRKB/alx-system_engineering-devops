@@ -20,7 +20,7 @@ new_config="
 \t\treturn 404 \"Ceci n'est pas une page\";
 \t}
 
-\tadd_header X-Served-By \"$(alx_Hostname)\";
+\tadd_header X-Served-By \"$(hostname)\";
 "
 ## Implementations
 echo "$alx_defaultMessage" | sudo tee "$alx_defaultPage" # Create default index
