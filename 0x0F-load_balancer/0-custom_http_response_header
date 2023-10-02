@@ -15,11 +15,6 @@ new_config="
 \t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
 \t}
 
-\tlocation @horror_pizza {
-\t\tdefault_type text/html;
-\t\treturn 404 \"Ceci n'est pas une page\";
-\t}
-
 \tadd_header X-Served-By \"$(hostname)\";
 "
 ## Implementations
