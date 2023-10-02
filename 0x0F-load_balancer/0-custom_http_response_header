@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# bash script to update && configure ubuntu server: nginx
+sudo apt update -y
+sudo apt install nginx -y
+#injecy custom header
+sed -i "/listen 80 default_server/i add_header X-Served-By $HOSTNAME;" /etc/nginx/sites-available/default
+#restart service
+sudo service nginx restart
