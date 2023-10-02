@@ -6,7 +6,7 @@ sudo apt update -y
 sudo apt install nginx -y
 
 # Configuration variables
-alx_nginxDefaultSites="/etc/nginx/sites-available/default"
+alx_nginxDefaultSites="/etc/nginx/sites-enabled/default"
 alx_defaultPage="/var/www/html/index.nginx-debian.html"
 alx_defaultMessage="Hello World!"
 
