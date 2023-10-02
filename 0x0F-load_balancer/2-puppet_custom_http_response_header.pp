@@ -1,31 +1,13 @@
 # puppet manifest to config a server
-exec { 'apt-operations':
-  command => 'sudo apt update -y && sudo apt install nginx -y',
-  path    => '/usr/bin',
-  onlyif  => '/usr/bin/test ! -f /etc/nginx/sites-available/default',
-  require => Package['nginx'],
-  notify  => Service['nginx'],
+exec { 'apt operations':
+  command     => 'sudo apt-get -y update && sudo apt-get -y install nginx',
+  provider => shell,
 }
-file { '/etc/nginx/sites-available/default':
-  ensure  => file,
-  content => '
-    server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
-        
-        add_header X-Served-By $HOSTNAME;
-        
-        location / {
-            root /usr/share/nginx/html;
-            index index.html;
-        }
-    }
-  ',
-  require => Exec['apt-update-install-nginx'],
-  notify  => Service['nginx'],
+exec { 'seeding the configuration':
+  command => 'sudo sed -i "/listen 80 default_server;/a add_header X-Served-By $HOSTNAME;" /etc/nginx/sites-available/default',
+  provider => shell,
 }
-service { 'nginx':
-  ensure  => running,
-  enable  => true,
-  require => File['/etc/nginx/sites-available/default'],
+exec { 'service nginx restart':
+  command => 'sudo service nginx restart',
+  provider => shell,
 }
