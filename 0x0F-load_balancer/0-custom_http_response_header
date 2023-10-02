@@ -4,24 +4,11 @@
 # apt operations
 sudo apt update -y
 sudo apt install nginx -y
-sudo sh -c 'echo "Hello World!" > /var/www/html/index.nginx-debian.html' # Create default index
-
 # Configuration variables
-new_config="
-\tlocation /redirect_me {
-\t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
-\t}
-
-\tadd_header X-Served-By \"$(hostname)\";
-"
-## Implementations
-sudo sed -i -e "/server_name _;/ {
-    n; a \\
-$new_config
-}" /etc/nginx/sites-enabled/default # Update Nginx default configuration
-tobefixed="=404;"
-fixwith="@pizza_horrors;\n\t}
-\n\n\tlocation @pizza_horrors {\n\t\tdefault_type text/html;
-\n\t\treturn 404 \"Ceci n\'est pas une page\";"
-sudo sed -i -z "s|$tobefixed|$fixwith|" /etc/nginx/sites-enabled/default #fix 404
+replacment="\\\tlocation /redirect_me {\n\t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n\t}\n\n"
+nginx_sites="/etc/nginx/sites-enabled/default"
+location=$(grep -Fn location $nginx_sites | head -1 | cut -d":" -f1)
+sudo sed -i "/listen 80 default_server/i add_header XR-Served-By $(hostname);" ${nginx_sites}
+sudo sed -i "${location}i ${replacment}" ${nginx_sites}
+sudo sh -c 'echo "Hello World!" > /var/www/html/index.nginx-debian.html' # Create default index
 sudo service nginx restart # Restart service
