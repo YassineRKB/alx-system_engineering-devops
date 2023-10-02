@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# bash script to install and configure haproxy
+
+# apt operations
+sudo apt-get -y update
+sudo apt-get -y install haproxy
+
+# applying configuration to haproxy.cfg
+sudo tee -a /etc/haproxy/haproxy.cfg <<EOF
+frontend the_frontyard
+    bind *:80
+    default_backend the_backyard
+
+backend the_backyard
+    balance roundrobin
+    server 351220-web-01 100.25.192.79:80 check
+    server 351220-web-02 54.84.27.255:80 check
+EOF
+# Restart HAProxy service
+sudo service haproxy restart
