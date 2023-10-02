@@ -4,6 +4,7 @@
 # apt operations
 sudo apt update -y
 sudo apt install nginx -y
+sudo sh -c 'echo "Hello World!" > /var/www/html/index.nginx-debian.html' # Create default index
 
 # Configuration variables
 new_config="
@@ -14,7 +15,6 @@ new_config="
 \tadd_header X-Served-By \"$(hostname)\";
 "
 ## Implementations
-echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html # Create default index
 sudo sed -i -e "/server_name _;/ {
     n; a \\
 $new_config
