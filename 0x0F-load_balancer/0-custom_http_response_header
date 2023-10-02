@@ -7,9 +7,6 @@ sudo apt install nginx -y
 
 # Configuration variables
 alx_nginxDefaultSites="/etc/nginx/sites-enabled/default"
-alx_defaultPage="/var/www/html/index.nginx-debian.html"
-alx_defaultMessage="Hello World!"
-
 new_config="
 \tlocation /redirect_me {
 \t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
@@ -18,7 +15,7 @@ new_config="
 \tadd_header X-Served-By \"$(hostname)\";
 "
 ## Implementations
-echo "$alx_defaultMessage" | sudo tee "$alx_defaultPage" # Create default index
+echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html # Create default index
 sudo sed -i -e "/server_name _;/ {
     n; a \\
 $new_config
