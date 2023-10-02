@@ -19,4 +19,9 @@ sudo sed -i -e "/server_name _;/ {
     n; a \\
 $new_config
 }" /etc/nginx/sites-enabled/default # Update Nginx default configuration
+tobefixed="=404;"
+fixwith="@pizza_horrors;\n\t}
+\n\n\tlocation @pizza_horrors {\n\t\tdefault_type text/html;
+\n\t\treturn 404 \"Ceci n\'est pas une page\";"
+sudo sed -i -z "s|$tobefixed|$fixwith|" /etc/nginx/sites-enabled/default #fix 404
 sudo service nginx restart # Restart service
