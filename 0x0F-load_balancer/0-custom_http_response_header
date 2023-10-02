@@ -6,7 +6,6 @@ sudo apt update -y
 sudo apt install nginx -y
 
 # Configuration variables
-alx_nginxDefaultSites="/etc/nginx/sites-enabled/default"
 new_config="
 \tlocation /redirect_me {
 \t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
@@ -19,5 +18,5 @@ echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html # Create de
 sudo sed -i -e "/server_name _;/ {
     n; a \\
 $new_config
-}" $alx_nginxDefaultSites # Update Nginx default configuration
+}" /etc/nginx/sites-enabled/default # Update Nginx default configuration
 sudo service nginx restart # Restart service
