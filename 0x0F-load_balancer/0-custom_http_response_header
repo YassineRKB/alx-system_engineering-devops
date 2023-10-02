@@ -1,25 +1,31 @@
 #!/usr/bin/env bash
-# bash script to update && configure ubuntu server: nginx
+# Bash script to update and configure an Ubuntu server with Nginx
 
-## apt operations
-sudo apt update -y;
-sudo apt install nginx -y;
+# apt operations
+sudo apt update -y
+sudo apt install nginx -y
 
-## configuration vars, files and logic
-alx_Hostname=$(hostname);
-alx_nginxDefaultSites="/etc/nginx/sites-available/default";
-alx_nginxServerSectionArea=$(grep -Fn location $alx_nginxDefaultSites | head -1 | cut -d":" -f1);
-alx_nginxServerSectionData="\\\tlocation /redirect_me {\n\t\treturn 301 https://youtu.be/QH2-TGUlwu4;\n\t}\n\n";
-alx_defaultPage="/var/www/html/index.html"
+# Configuration variables
+alx_nginxDefaultSites="/etc/nginx/sites-available/default"
+alx_defaultPage="/var/www/html/index.nginx-debian.html"
 alx_defaultMessage="Hello World!"
-alx_404File="/var/www/html/404.html"
-alx_404Message="Ceci n'est pas une page"
-alx_nginxIdentifier="\\\tadd_header X-Served-By \"$(alx_Hostname)\";\n"
 
-## implementations
-sudo sed -i "${alx_nginxServerSectionArea}i ${alx_nginxServerSectionData}" ${alx_nginxDefaultSites}; #settingup nginx server & redirect route
-sudo sed -i "${alx_nginxServerSectionArea}i ${alx_404File}" ${alx_nginxDefaultSites}; #setting 404 route
-sudo sed -i "${alx_nginxServerSectionArea}i ${alx_nginxIdentifier}" ${alx_nginxDefaultSites}; #setting x-served-by header
-echo $alx_defaultMessage | sudo tee $alx_defaultPage #creating default route
-echo $alx_404Message | sudo tee $alx_404File #creating 404 page
-sudo service nginx restart #restart service
+new_config="
+\tlocation /redirect_me {
+\t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+\t}
+
+\tlocation @horror_pizza {
+\t\tdefault_type text/html;
+\t\treturn 404 \"Ceci n'est pas une page\";
+\t}
+
+\tadd_header X-Served-By \"$(alx_Hostname)\";
+"
+## Implementations
+echo "$alx_defaultMessage" | sudo tee "$alx_defaultPage" # Create default index
+sudo sed -i -e "/server_name _;/ {
+    n; a \\
+$new_config
+}" $alx_nginxDefaultSites # Update Nginx default configuration
+sudo service nginx restart # Restart service
