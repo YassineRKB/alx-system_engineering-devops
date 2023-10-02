@@ -1,8 +1,15 @@
 #!/usr/bin/env bash
 # bash script to update && configure ubuntu server: nginx
+
+## apt operations
 sudo apt update -y
 sudo apt install nginx -y
-#injecy custom header
-sed -i "/listen 80 default_server/i add_header X-Served-By $HOSTNAME;" /etc/nginx/sites-available/default
-#restart service
-sudo service nginx restart
+
+## conigration vars, files and logic
+alx_Hostname=$(hostname);
+alx_nginxDefaultSites="/etc/nginx/sites-available/default"
+## implementations
+echo "Ceci n'est pas une page" | sudo tee "/var/www/html/404.html" #create 404 page
+sed -i "/listen 80 default_server/i add_header X-Served-By $HOSTNAME;" /etc/nginx/sites-available/default #injecy custom header
+sudo sh -c 'echo "Hello World!" > /var/www/html/index.nginx-debian.html' #set default index
+sudo service nginx restart #restart service
