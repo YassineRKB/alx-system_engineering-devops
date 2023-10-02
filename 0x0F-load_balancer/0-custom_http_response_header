@@ -5,8 +5,7 @@
 sudo apt update -y
 sudo apt install nginx -y
 # Configuration variables
-nginx_sites="/etc/nginx/sites-availeble/default"
-location=$(grep -Fn location $nginx_sites | head -1 | cut -d":" -f1)
+nginx_sites="/etc/nginx/sites-available/default"
 sudo sed -i "/listen 80 default_server/a add_header X-Served-By $(hostname);" ${nginx_sites}
 sudo sh -c 'echo "Hello World!" > /var/www/html/index.nginx-debian.html' # Create default index
 sudo service nginx restart # Restart service
