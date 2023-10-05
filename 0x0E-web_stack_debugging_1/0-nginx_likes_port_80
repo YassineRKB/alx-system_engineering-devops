@@ -1,6 +1,6 @@
 #!/bin/bash
 # Bash script to fix nginx configuration
-sudo sed -i 's/sites-enabled/sites-available/g' /etc/nginx/nginx.conf
+sudo sed -i 's/sites-enabled/sites-available/g' "/etc/nginx/nginx.conf"
 # restart nginx
 sudo service nginx restart
 
