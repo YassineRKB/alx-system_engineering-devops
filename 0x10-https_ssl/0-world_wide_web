@@ -4,10 +4,10 @@ domain=$1
 if [ "$#" -eq 2 ]; then
 	subdom=$2
 else
-	subdoms=("www" "lb-01" "web-01" "web-02")
+	subdom=("www" "lb-01" "web-01" "web-02")
 fi
 # Loop through the subdomains and query DNS information
-for sub in "${subdoms[@]}"; do
+for sub in "${subdom[@]}"; do
     echo -n "The subdomain $sub"
     result=$(dig "$sub.$domain" +short)
     
