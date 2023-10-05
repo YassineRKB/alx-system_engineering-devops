@@ -1,10 +1,6 @@
 #!/bin/bash
 # Bash script to fix nginx configuration
-# configuration file paths
-sites_available="/etc/nginx/sites-available/default"
-sites_enabled="/etc/nginx/sites-enabled/default"
-
-# relink
-sudo rm -f "$sites_enabled"
-sudo ln -s "$sites_available" "$sites_enabled"
+sudo sed -i 's/sites-enabled/sites-available/g' /etc/nginx/nginx.conf
+# restart nginx
 sudo service nginx restart
+
