@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-# Bash script to fix nginx configuration
-sed -i 's/[0-9]\+ default_server/80 default_server/' /etc/nginx/sites-enabled/default
+# Bash script to fix nginx configuration short and easy
+sed -i 's/[0-9]\+ default_server/80/g' /etc/nginx/sites-enabled/default
 sudo pkill -o nginx
