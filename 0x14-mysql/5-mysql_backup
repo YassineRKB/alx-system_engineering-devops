@@ -2,5 +2,5 @@
 # bash script to backupdump sql databases and compress file
 comformat=$(date +"%d-%m-%Y")
 file="$comformat.tar.gz"
-mysqldump --all databases -u root -p"$1" > backup.sql
+mysqldump --all-databases -u root -p"$1" > backup.sql
 tar -czfv "$file" backup.sql
