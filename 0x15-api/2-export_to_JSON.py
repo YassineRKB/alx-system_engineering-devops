@@ -26,4 +26,4 @@ if __name__ == '__main__':
             }
             JSONROWDATA.append(row)
         JSONDATA[param] = JSONROWDATA
-        dump(JSONROWDATA, stream)
+        dump(JSONDATA, stream)
