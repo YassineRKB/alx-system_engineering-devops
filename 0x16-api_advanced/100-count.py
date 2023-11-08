@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """count_words module"""
-import re
 import requests
 
 
