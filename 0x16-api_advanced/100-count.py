@@ -10,23 +10,16 @@ def count_words(subreddit, word_list, hot_dict=None, after=""):
     if hot_dict is None:
         hot_dict = {}
     url = "http://www.reddit.com/r/{}/hot.json?limit=100".format(subreddit)
-    user_agent = "User-Agent': 'alx project test api token Ls5d46wqd1"
-    response = requests.get(
-        url,
-        params={"after": after},
-        headers={"User-Agent": user_agent}
-        )
-    if response.status_code == 200:
-        after = response.json()["data"].get("after")
+    user_agent = {'User-Agent': 'alx project test api token 5KSODKW2bd24'}
+    res = requests.get(url, params={"after": after}, headers=user_agent)
+    if res.status_code == 200:
+        after = res.json()["data"].get("after")
         if not after:
-            sorted_hot_dict = sorted(
-                hot_dict.items(),
-                key=lambda x: (-x[1], x[0])
-                )
-            for word, occurrence in sorted_hot_dict:
+            sorted_dict = sorted(hot_dict.items(), key=lambda x: (-x[1], x[0]))
+            for word, occurrence in sorted_dict:
                 print(f"{word}: {occurrence}")
             return
-        for post in response.json()["data"]["children"]:
+        for post in res.json()["data"]["children"]:
             title = post["data"]["title"].lower()
             for word in word_list:
                 word = word.lower()
