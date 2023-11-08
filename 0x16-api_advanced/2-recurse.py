@@ -1,28 +1,32 @@
 #!/usr/bin/python3
 """function recurse """
-
 import requests
 
 
-def recurse(subreddit, hot_list=[], after=""):
-    """ recursive function that queries the Reddit API and returns a list
-    containing the titles of all hot articles for a given subreddit. If no
-    results are found for the given subreddit, the function should return
-    None."""
+def recurse(subreddit, after=None):
+    """recursive function that queries the Reddit API and returns a
+    list containing the titles of all hot articles for a given subreddit.
+    If no results are found for the given subreddit, the function should
+    return None"""
     if subreddit is None:
         return None
-    url = "http://www.reddit.com/r/{}/hot.json".format(subreddit)
-    user_agent = {"User-Agent": "mama mia where is betty"}
-    res = requests.get(
-        url,
-        params={"after": after},
-        headers=user_agent,
-        )
-    if res.status_code == 200:
-        after = res.json().get("data").get("after")
-        if not after:
+    url = f"http://www.reddit.com/r/{subreddit}/hot.json"
+    user_agent = "api alx project"
+    params = {"after": after} if after else {}
+    try:
+        response = requests.get(
+            url,
+            headers={"User-Agent": user_agent},
+            params=params
+            )
+        if response.status_code == 200:
+            data = response.json()["data"]
+            after = data.get("after")
+            children = data.get("children")
+            hot_list = [post["data"]["title"] for post in children]
+            if after:
+                hot_list.extend(recurse(subreddit, after))
             return hot_list
-        results = res.json().get("data").get("children")
-        for item in results:
-            hot_list.append(item.get("data").get("title"))
-        return recurse(subreddit, hot_list, after)
+    except requests.exceptions.RequestException as e:
+        print(f"Request failed: {e}")
+    return []
