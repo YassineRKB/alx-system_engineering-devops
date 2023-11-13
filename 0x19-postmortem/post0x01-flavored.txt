@@ -1,0 +1,18 @@
+Postmortem Report: Service Outage of November 10, 2023 "the smurfs smurfing in the server's room, accidentally pulled a cord they should not"
+Issue Summary:
+Duration: 7h hell for the small smurfs (from 14:00 AM to 9:50 PM UTC) causing bed performance of our web application.
+Impact: angry birds chriping our call center chieftian's ears off?
+Root Cause: someone somewhere in our little smurf vilage moved a block where they should not and did not put the block properly in new place. poor api v1 got a middle age crisses and wants to act like the new teenager v3.
+Timeline:
+angry birds sent alot of stones and logs (calls and tickets)
+call center chieftian are old and slow and could not handle the load.
+the villain smurfs panicks but were was enough to bring a similar book that is missing (reverting to last working version before code changes)
+our resident sorceers (senior engineers) caught wind of the mischive, cast thier spells (analyside new code) and found the curse *(spagutti code of juniors)
+smurfs tried to free.
+sorcerss captured the smurfs, and now they simmer in cauldrons as they reflect on what they did wrong.
+web app no longer has bed performance issues.
+
+Corrective and Preventative Measures:
+Improvements/Fixes( how not to simmer in cauldron again):
+treat mistress web app gently and always check for reaction and resonable course of action, especially with women.
+strict CI/CD 

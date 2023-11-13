@@ -1,0 +1,24 @@
+Postmortem Report: Service Outage Due to major API Issue on November 10, 2023
+Issue Summary:
+Duration: Outage occurred on November 10, 2023, from 14:00 AM to 9:50 PM (UTC).
+Impact: TOutage affected all web applications running on our api cosing ("too many requests error")
+Users were unable to load any data on any page at all and instead of data of available articles the error message was shown.
+This issue affected all our users.
+Root Cause: accidental droping compability of legacy depricated code on v1 of our api and not moving to newer versions who has this error recitified.
+Timeline:
+Detection Time: detection happend at 14:20 AM (UTC) when our call center was flooded by reports that articles were not being added to acricles section,
+and an error was being shown on the level of all pages loading data from api with or without filter.
+Detection Method: A call complaint triggered invistigation by our internal  maintenance team on shift.
+Actions Taken: case was urgently forwarded to responsible the engineering team began starting with a reverting to the last working build, then review of the pushed code, and cross checking with last working version verion.
+Misleading Paths: too many changes border line breaking our agile methodology hence the load to check is bigger than standard and without a working last build, it would be disaster.
+Escalation: incident was escalated to the senior engineers due to issue made by juniors lacking experience and lax attitude.
+Resolution: issue was resolved at 9:50 AM (UTC) when the faulty code was identified amoung the plethora of reasons that could cause issues in the changed code.
+
+Root Cause and Resolution:
+Root Cause: the cause was a coding issue within the api block responsible for enforcing rules accross all api versions, faulty and incomplete implementation combining new code and legact code meant for backward compatibility.
+Resolution: issue was fixed via recitifying the block to accept more paramaters optionally if they exist or go to default v1 if not exists.
+
+Corrective and Preventative Measures:
+Improvements/Fixes:
+all junior engineers are going through a siminar of the importance of agile methodology, correct CI/CD Operation.
+new correct code was pushed and made the new version of the code a stable major version with enhanced filters and features.
