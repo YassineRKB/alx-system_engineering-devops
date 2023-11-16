@@ -22,7 +22,7 @@ server {
 	listen 80 default_server;
 	location /hbnb_static/ { alias /data/web_static/current/; }
 	location /airbnb_onepage/ {
-		proxy_pass http://127.0.0.1:5000/;
+		proxy_pass http://127.0.0.1:5000/airbnb_onepage/;
 	}
 	add_header X-Served-By 351220-web-01;
 	listen [::]:80 default_server;
