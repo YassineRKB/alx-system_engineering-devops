@@ -1,4 +1,4 @@
-Unit]
+[Unit]
 Description=Gunicorn Butler to server the Airbnb
 After=network.target
 [Service]
